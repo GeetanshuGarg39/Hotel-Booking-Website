@@ -1,10 +1,18 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../UserContext";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import axios from "axios";
 
 const Navbar = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [menu, toggleMenu] = useState(false);
+
+  async function logout() {
+    await axios.post("/logout");
+    <Navigate to="/" />;
+    setUser(null);
+  }
+
   return (
     <header className="p-4 flex justify-between">
       <Link href="/" className="flex gap-1">
@@ -101,12 +109,14 @@ const Navbar = () => {
               </Link>
               {user ? (
                 <Link
-                  to="/login"
                   class="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
                   tabindex="-1"
                   id="menu-item-1"
-                  onClick={() => toggleMenu(false)}
+                  onClick={() => {
+                    logout();
+                    toggleMenu(false);
+                  }}
                 >
                   Sign Out
                 </Link>

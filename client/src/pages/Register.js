@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const Register = () => {
@@ -7,6 +7,7 @@ const Register = () => {
   const [name,setName] = useState('');
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
+  const navigate = useNavigate();
 
   const registerUser = async(e) =>{
     try{
@@ -14,7 +15,7 @@ const Register = () => {
       await axios.post('register',{
         name,email,password
       })
-      // <Navigate to=""/>
+      navigate("/login")
     }catch(err){
       console.log(err)
     }

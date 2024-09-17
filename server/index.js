@@ -90,7 +90,7 @@ app.post("/api/login", async (req, res) => {
         res.status(422).json("Invalid credentials");
       }
     } else {
-      res.json("not found");
+      res.status(400).json("not found");
     }
   } catch (e) {
     res.status(422).json(e);
